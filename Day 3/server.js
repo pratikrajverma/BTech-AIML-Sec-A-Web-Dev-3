@@ -24,14 +24,13 @@ app.use(express.json())
 let users = ['Ankit', 'Rahul', 'Nandan', 'Jigar']
 
 app.get('/users' , (req,res)=>{
-
     res.status(200).json({
         message:'data send successfully...',
         success:true,
         users:users
     }) 
-
 })
+
 
 
 app.post('/createuser'  , (req, res)=>{
