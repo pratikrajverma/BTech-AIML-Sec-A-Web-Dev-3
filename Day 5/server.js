@@ -13,7 +13,8 @@ app.post('/user/:id', (req,res)=>{
 
     console.log(req.method)
 
-    console.log(req.body)
+    // console.log(req.body[0])
+    // console.log(req.body[1])
 
     console.log(req.params)
 
