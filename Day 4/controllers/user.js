@@ -114,6 +114,30 @@ const deleteUser = async (req,res)=>{
 
 }
 
-export {getUser , createUser, updateUser, deleteUser}
+
+const getUserById =  (req,res)=>{
+    const {id} = req.params
+
+    let data = getData()
+
+    let user = data.find((element)=>{
+        return element.id == id
+    })
+
+    if(!user){
+        return res.status(404).json({
+            message:"data did not found...",
+            success:false
+        })
+    }
+    res.status(200).json({
+        message:'user found successfully...',
+        success:true,
+        user
+    })
+
+}
+
+export {getUser , createUser, updateUser, deleteUser   , getUserById}
 
  
