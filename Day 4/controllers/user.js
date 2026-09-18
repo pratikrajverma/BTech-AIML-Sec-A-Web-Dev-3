@@ -18,8 +18,9 @@ const getUser = (req,res)=>{
     })
 
 }
+
  
-const createUser = (req,res)=>{
+const createUser =  (req,res)=>{
 
     let {name, age, id} = req.body
 
@@ -48,7 +49,7 @@ const createUser = (req,res)=>{
 }
 
 
-const updateUser = (req,res)=>{
+const updateUser = async (req,res)=>{
 
     let {name, age} = req.body
 
@@ -56,6 +57,7 @@ const updateUser = (req,res)=>{
 
     let data = getData()
 
+     
 
     let user = data.find(e=>e.id === Number(id))
 
@@ -78,9 +80,6 @@ const updateUser = (req,res)=>{
         user.age = age
     }
 
-
-    
-
     fs.writeFileSync('./database/data.json', JSON.stringify(data, null, 3))
 
 
@@ -90,12 +89,31 @@ const updateUser = (req,res)=>{
         data
     })
 
-
 }
 
 
+const deleteUser = async (req,res)=>{
+    let id = req.params.id
 
+    let data = getData()
 
-export {getUser , createUser, updateUser}
+    let user = data.find(e=>e.id === Number(id))
+
+    let index = data.indexOf(user)
+    // let index = data.findIndex(e=>e.id === Number(id))
+
+    data.splice(index, 1)
+
+    fs.writeFileSync('./database/data.json', JSON.stringify(data, null, 3))
+
+    res.status(200).json({
+        message:'user deleted successfully....',
+        success:true,
+        data
+    })
+
+}
+
+export {getUser , createUser, updateUser, deleteUser}
 
  
