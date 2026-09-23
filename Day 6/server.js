@@ -9,9 +9,7 @@ const port  = 3000
 
 
 app.post('/user', (req,res)=>{
-
     console.log(req.body)  =  { Name: 'ankit' }
-
 })
 
 
