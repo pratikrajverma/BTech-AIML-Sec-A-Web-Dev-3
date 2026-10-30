@@ -75,7 +75,7 @@ const updateUser = async (req,res)=>{
         }
  
         if(age){
-            user = await User.findByIdAndUpdate({_id:id}, {age : age})
+            user = await User.findByIdAndUpdate({_id:id}, {age : age} , {new:true})
         }
 
         if(gender){
