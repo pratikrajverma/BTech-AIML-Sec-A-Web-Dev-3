@@ -3,6 +3,12 @@ import express from 'express'
 const app = express()
 
 import connectDB from './database/mogodb.js'
+import route from './routes/userRoutes.js'
+
+
+app.use(express.json())
+
+app.use(route) 
 
 connectDB()
 
