@@ -30,6 +30,7 @@ const signup = async (req,res)=>{
 
         const hashpassword  = await bcrypt.hash(password, 10)
 
+
         user = await User.create({
             name, password : hashpassword, email, role
         })
@@ -53,4 +54,53 @@ const signup = async (req,res)=>{
     }
 }
 
-export { signup}
+
+const login = async (req,res)=>{
+    try {
+        const {email , password} = req.body
+
+        if(!email || !password){
+            return res.status(404).json({
+                message:'data not found for login...',
+                success:false
+            })
+        }
+
+
+         let user = await User.findOne({email})
+
+         if(!user){
+            return res.status(401).json({
+                message:'user did not found...',
+                success:false
+            })
+         }
+
+
+         if(await bcrypt.compare(password, user.password)){
+
+            res.status(200).json({
+                message:'login successfully...',
+                success:true,
+                user
+            })
+
+
+         }else{
+            return res.status(401).json({
+                message:'invalid password',
+                success:false
+            })
+
+
+         }
+
+
+
+
+    } catch (error) {
+        
+    }
+}
+
+export { signup , }
