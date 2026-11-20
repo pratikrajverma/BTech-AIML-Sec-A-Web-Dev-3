@@ -99,8 +99,11 @@ const login = async (req,res)=>{
 
 
     } catch (error) {
-        
+        res.status(500).json({
+            message:'failed to login...',
+            success:false
+        })
     }
 }
 
-export { signup , }
+export { signup , login}
