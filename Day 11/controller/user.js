@@ -1,5 +1,7 @@
 import User from "../model/userModel.js"
 
+import jwt from 'jsonwebtoken'
+
 import bcrypt from 'bcrypt'
 
 const signup = async (req,res)=>{
@@ -59,12 +61,15 @@ const login = async (req,res)=>{
     try {
         const {email , password} = req.body
 
+
         if(!email || !password){
             return res.status(404).json({
                 message:'data not found for login...',
                 success:false
             })
         }
+
+
 
 
          let user = await User.findOne({email})
@@ -79,10 +84,25 @@ const login = async (req,res)=>{
 
          if(await bcrypt.compare(password, user.password)){
 
+
+           let token = await  jwt.sign(
+                {
+                    userId : user._id,
+                    role : user.role
+                },
+                'jwtkey',
+                {
+                    expiresIn : '3h'
+                }
+            )
+
+            
+
             res.status(200).json({
                 message:'login successfully...',
                 success:true,
-                user
+                user,
+                token
             })
 
 
